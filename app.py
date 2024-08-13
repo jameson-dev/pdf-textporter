@@ -10,6 +10,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 font_dir_name = "fonts/"
 text_font = "Consolas"
 pdf_template_name = "template.pdf"
+pdf_output_name = "output.pdf"
 displayed_string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".upper()
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
