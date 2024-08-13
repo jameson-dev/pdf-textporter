@@ -1,9 +1,12 @@
 import io
 import os.path
+
 from pypdf import PdfReader, PdfWriter
-from pypdf.annotations import FreeText
 from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.pagesizes import letter
+from reportlab.pdfbase.ttfonts import TTFont
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,13 +17,14 @@ FONT_PATH = os.path.join(ROOT_DIR, 'fonts/')
 packet = io.BytesIO()
 
 canvas = canvas.Canvas(packet, pagesize=letter)
+pdfmetrics.registerFont(TTFont("Consolas", FONT_PATH + "Consolas.ttf"))
+canvas.setFont("Consolas", 15)
 canvas.drawString(10, 100, "CFSRES: INC:S0923 ROAD CRASH RESCUE")
 canvas.save()
 
 packet.seek(0)
 new_pdf = PdfReader(packet)
 
-existing_pdf = PdfReader(open(pdf_path, "rb"))
 existing_pdf = PdfReader(open(PDF_PATH, "rb"))
 output = PdfWriter()
 
