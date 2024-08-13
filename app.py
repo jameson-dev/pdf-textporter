@@ -7,19 +7,21 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.ttfonts import TTFont
 
+font_dir_name = "fonts/"
+text_font = "Consolas"
+pdf_template_name = "template.pdf"
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+PDF_PATH = os.path.join(ROOT_DIR, pdf_template_name)
+FONT_PATH = os.path.join(ROOT_DIR, font_dir_name)
 
-PDF_PATH = os.path.join(ROOT_DIR, 'test-doc.pdf')
-FONT_PATH = os.path.join(ROOT_DIR, 'fonts/')
 
+pdfmetrics.registerFont(TTFont(text_font, FONT_PATH + f"{text_font}.ttf"))
 
 packet = io.BytesIO()
+canvas = canvas.Canvas(filename=packet, pagesize=letter)
 
-canvas = canvas.Canvas(packet, pagesize=letter)
-pdfmetrics.registerFont(TTFont("Consolas", FONT_PATH + "Consolas.ttf"))
-canvas.setFont("Consolas", 15)
-canvas.drawString(10, 100, "CFSRES: INC:S0923 ROAD CRASH RESCUE")
+canvas.setFont(text_font, 15)
 canvas.save()
 
 packet.seek(0)
@@ -32,6 +34,6 @@ page = existing_pdf.get_page(0)
 page.merge_page(new_pdf.get_page(0))
 output.add_page(page)
 
-outputStream = open("final-pdf.pdf", "wb")
+outputStream = open(pdf_output_name, "wb")
 output.write(outputStream)
 outputStream.close()
