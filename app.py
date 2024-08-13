@@ -5,9 +5,10 @@ from pypdf.annotations import FreeText
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
-RESOURCE_ROOT = "./"
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-pdf_path = os.path.join(RESOURCE_ROOT, 'test-doc.pdf')
+PDF_PATH = os.path.join(ROOT_DIR, 'test-doc.pdf')
+FONT_PATH = os.path.join(ROOT_DIR, 'fonts/')
 
 
 packet = io.BytesIO()
@@ -20,6 +21,7 @@ packet.seek(0)
 new_pdf = PdfReader(packet)
 
 existing_pdf = PdfReader(open(pdf_path, "rb"))
+existing_pdf = PdfReader(open(PDF_PATH, "rb"))
 output = PdfWriter()
 
 page = existing_pdf.get_page(0)
