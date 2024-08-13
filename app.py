@@ -10,6 +10,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 font_dir_name = "fonts/"
 text_font = "Consolas"
 pdf_template_name = "template.pdf"
+displayed_string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".upper()
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PDF_PATH = os.path.join(ROOT_DIR, pdf_template_name)
@@ -22,6 +23,7 @@ packet = io.BytesIO()
 canvas = canvas.Canvas(filename=packet, pagesize=letter)
 
 canvas.setFont(text_font, 15)
+canvas.drawString(10, 100, displayed_string)
 canvas.save()
 
 packet.seek(0)
