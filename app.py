@@ -4,7 +4,7 @@ import os.path
 from pypdf import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase.ttfonts import TTFont
 
 font_dir_name = "fonts/"
@@ -22,7 +22,7 @@ pdfmetrics.registerFont(TTFont(text_font, FONT_PATH + f"{text_font}.ttf"))
 
 # Create temporary PDF
 packet = io.BytesIO()
-canvas = canvas.Canvas(filename=packet, pagesize=letter)
+canvas = canvas.Canvas(filename=packet, pagesize=A4)
 
 # Set string parameters and save
 canvas.setFont(text_font, 15)
