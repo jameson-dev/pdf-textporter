@@ -27,8 +27,9 @@ pdfmetrics.registerFont(TTFont(text_font, FONT_PATH + f"{text_font}.ttf"))
 packet = io.BytesIO()
 
 # canvas = canvas.Canvas(filename=packet, pagesize=A4)
-doc = SimpleDocTemplate(filename=packet, pagesize=A4
-                        )
+doc = SimpleDocTemplate(filename=packet, pagesize=A4)
+
+# Instantiate styling class
 style = ParagraphStyle(
     name="Default",
     fontName=text_font,
@@ -39,7 +40,7 @@ style = ParagraphStyle(
     borderPadding=20
 )
 
-# Set Paragraph parameters and save
+# Paragraph parameters
 para_pager = Paragraph(displayed_string, style=style)
 
 # Create a vertical spacer
@@ -48,15 +49,15 @@ top_spacer = Spacer(0, 50)
 # Build the document with specified flowables
 doc.build([top_spacer, para_pager])
 
-# Create new PDF
+# Build the new PDF we'll be using
 packet.seek(0)
 new_pdf = PdfReader(packet)
 
-# Read PDF template
+# Read existing template PDF
 existing_pdf = PdfReader(open(PDF_PATH, "rb"))
 output = PdfWriter()
 
-# Overlay string onto to template PDF
+# Overlay new PDF onto template PDF
 page = existing_pdf.get_page(0)
 page.merge_page(new_pdf.get_page(0))
 output.add_page(page)
