@@ -2,7 +2,6 @@ import io
 import os.path
 
 from pypdf import PdfReader, PdfWriter
-from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
@@ -26,7 +25,6 @@ pdfmetrics.registerFont(TTFont(text_font, FONT_PATH + f"{text_font}.ttf"))
 # Create temporary PDF
 packet = io.BytesIO()
 
-# canvas = canvas.Canvas(filename=packet, pagesize=A4)
 doc = SimpleDocTemplate(filename=packet, pagesize=A4)
 
 # Instantiate styling class
