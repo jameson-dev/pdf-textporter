@@ -56,7 +56,7 @@ def create_temp_pdf(string, font) -> io.BytesIO:
     return packet
 
 
-def overlay_pdfs(overlay_pdf, template_pdf, pdf_name ):
+def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
     new_pdf = PdfReader(overlay_pdf)
 
     # Read existing template PDF
