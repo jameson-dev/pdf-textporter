@@ -21,7 +21,7 @@ FONT_PATH = os.path.join(ROOT_DIR, font_dir_name)
 
 
 def register_font(font, path) -> None:
-    pdfmetrics.registerFont(TTFont(text_font, FONT_PATH + f"{text_font}.ttf"))
+    pdfmetrics.registerFont(TTFont(font, path + f"{text_font}.ttf"))
 
 
 def create_temp_pdf(string, font) -> io.BytesIO:
