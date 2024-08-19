@@ -3,3 +3,4 @@ output.pdf
 messages.db
 *.log
 .idea/
+**/__pycache__/
