@@ -8,6 +8,9 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase.ttfonts import TTFont
 
+from sqlite import monitor_db
+
+
 font_dir_name = "fonts/"
 text_font = "Consolas"
 pdf_template_name = "template.pdf"
@@ -75,15 +78,18 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
 
 
 def main():
+    monitor_db("messages")
 
-    # Register custom font
-    register_font(text_font, FONT_PATH)
+    # TO BE MOVED TO ANOTHER MODULE
 
-    # Create temporary PDF with desired string
-    temp_pdf = create_temp_pdf(displayed_string, text_font)
-
-    # Overlay PDFs
-    overlay_pdfs(temp_pdf, PDF_PATH, pdf_output_name)
+    # # Register custom font
+    # register_font(text_font, FONT_PATH)
+    #
+    # # Create temporary PDF with desired string
+    # temp_pdf = create_temp_pdf(displayed_string, text_font)
+    #
+    # # Overlay PDFs
+    # overlay_pdfs(temp_pdf, PDF_PATH, pdf_output_name)
 
 
 if __name__ == "__main__":
