@@ -1,4 +1,5 @@
 
 output.pdf
 messages.db
+*.log
 .idea/
