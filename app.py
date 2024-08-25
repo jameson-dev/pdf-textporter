@@ -63,8 +63,9 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
     new_pdf = PdfReader(overlay_pdf)
 
     # Read existing template PDF
-    existing_pdf = PdfReader(open(template_pdf, "rb"))
-    output = PdfWriter()
+    with open(template_pdf, "rb") as f:
+        existing_pdf = PdfReader(f)
+        output = PdfWriter()
 
     # Overlay new PDF onto template PDF
     page = existing_pdf.get_page(0)
@@ -72,9 +73,8 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
     output.add_page(page)
 
     # Save output to a file
-    output_stream = open(pdf_name, "wb")
-    output.write(output_stream)
-    output_stream.close()
+    with open(pdf_name, "wb") as output_stream:
+        output.write(output_stream)
 
 
 def main():
