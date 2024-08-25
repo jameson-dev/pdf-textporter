@@ -1,11 +1,7 @@
-import io
 import os.path
-
-
 from register_font import register_font
 from generate_pdf import create_temp_pdf
 from overlay import overlay_pdfs
-
 
 from sqlite import monitor_db
 
