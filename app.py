@@ -1,6 +1,5 @@
 import io
 import os.path
-
 from pypdf import PdfReader, PdfWriter
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import ParagraphStyle
@@ -10,21 +9,16 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from sqlite import monitor_db
 
-
-font_dir_name = "fonts/"
-text_font = "Consolas"
-pdf_template_name = "template.pdf"
-pdf_output_name = "output.pdf"
-displayed_string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".upper()
-
-
+# Constants
+# TODO - Config file!
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-PDF_PATH = os.path.join(ROOT_DIR, pdf_template_name)
-FONT_PATH = os.path.join(ROOT_DIR, font_dir_name)
+PDF_TEMPLATE = os.path.join(ROOT_DIR, "template.pdf")
+PDF_OUTPUT = os.path.join(ROOT_DIR, "output.pdf")       # TODO - Timestamp generated PDFs
+FONT_PATH = os.path.join(ROOT_DIR, "fonts")
+DEFAULT_FONT = "Consolas"
+DISPLAYED_STRING = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".upper()
 
 
-def register_font(font, path) -> None:
-    pdfmetrics.registerFont(TTFont(font, path + f"{text_font}.ttf"))
 
 
 def create_temp_pdf(string, font) -> io.BytesIO:
