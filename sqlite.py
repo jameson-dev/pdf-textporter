@@ -1,5 +1,7 @@
 import sqlite3
 import time
+import os
+
 
 
 def monitor_db(table):
@@ -31,11 +33,13 @@ def monitor_db(table):
                 timestamp = row[2]
 
                 # Write each pager message to new file
-                with open(f"pager_msg-{timestamp}.log", "x") as file:
+                logs_path = os.path.join('pager_logs', f'pager_msg-{timestamp}.log')
+                with open(logs_path, "x") as file:
                     file.write(row[1])
                     print("File written ", print(row))
                 last_id = row[0]
                 print("Update last_id: ", last_id)
+
         # Loop every second
 
         time.sleep(1)
