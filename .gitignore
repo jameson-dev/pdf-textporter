@@ -1,6 +1,7 @@
 
 output.pdf
 messages.db
+pager_logs/*
 *.log
 .idea/
 **/__pycache__/
