@@ -2,6 +2,7 @@ import os.path
 from register_font import register_font
 from generate_pdf import create_temp_pdf
 from overlay import overlay_pdfs
+from multiprocessing import Process
 
 from sqlite import monitor_db
 
@@ -25,3 +26,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+    process1 = Process(target=watchdog)
+    process1.start()
+    process2 = Process(target=main)
+    process2.start()
+

@@ -2,6 +2,7 @@ import sqlite3
 import time
 import os
 
+from generate_pdf import create_temp_pdf
 
 
 def monitor_db(table):
