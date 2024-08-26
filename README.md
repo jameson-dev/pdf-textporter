@@ -6,13 +6,21 @@ Once the database receives a new message, this app will ingest them and present 
 
 ## __Project Status:__
 
-- [x] SQLite database monitoring
-- [x] PDF file creation
-- [ ] Database messages imported to PDF
-- [ ] Config file(s)
-- [ ] Complete PDF Template
-- [ ] Production testing
+### Monitoring & Saving
 
+- [x] SQLite database monitoring
+- [x] File watchdog
+
+### PDF Creation & Overlay
+- [x] PDF file creation
+- [ ] Complete PDF Template
+- [ ] Database messages imported to PDF
+- [ ] PDF Printing
+
+### Application Functionality
+- [ ] Config file(s)
+- [ ] Application logging
+- [ ] Production testing
 
 
 # Important Notes
