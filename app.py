@@ -29,22 +29,22 @@ def main():
     init_logging()
 
     try:
-        logging.info("Starting SQLite database monitoring...")
-        monitor_db("messages")
-
         logging.info("Registering font(s)...")
         register_font(DEFAULT_FONT, FONT_PATH)
 
-        logging.info("Generating temporary PDF...")
-        create_temp_pdf(DISPLAYED_STRING, DEFAULT_FONT)
+        logging.info("Starting SQLite database monitoring...")
+        monitor_db("messages")
 
-        logging.info(f"Overlaying PDFs and saving to {PDF_OUTPUT}...")
-        overlay_pdfs(create_temp_pdf, PDF_TEMPLATE, PDF_OUTPUT)
-
-        logging.info(f"PDF ({PDF_OUTPUT}) has been generated.")
+        # TODO - To be moved when ready
+        # logging.info("Generating temporary PDF...")
+        # create_temp_pdf(DISPLAYED_STRING, DEFAULT_FONT)
+        #
+        # logging.info(f"Overlaying PDFs and saving to {PDF_OUTPUT}...")
+        # overlay_pdfs(create_temp_pdf, PDF_TEMPLATE, PDF_OUTPUT)
+        #
+        # logging.info(f"PDF ({PDF_OUTPUT}) has been generated.")
     except Exception as e:
         logging.error(f"An error occurred: {e}", exc_info=True)
-
 
 
 def watchdog():
