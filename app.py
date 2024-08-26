@@ -6,6 +6,8 @@ from multiprocessing import Process
 
 from sqlite import monitor_db
 
+from file_watchdog import Watcher
+
 # Constants
 # TODO - Config file!
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,10 +24,12 @@ def main():
     register_font(DEFAULT_FONT, FONT_PATH)
     create_temp_pdf(DISPLAYED_STRING, DEFAULT_FONT)
     overlay_pdfs(create_temp_pdf, PDF_TEMPLATE, PDF_OUTPUT)
+def watchdog():
+    w = Watcher()
+    w.run()
 
 
 if __name__ == "__main__":
-    main()
     process1 = Process(target=watchdog)
     process1.start()
     process2 = Process(target=main)
