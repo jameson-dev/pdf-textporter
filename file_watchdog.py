@@ -1,3 +1,4 @@
+import os.path
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -11,6 +12,9 @@ class Watcher:
         self.observer = Observer()
 
     def run(self):
+        if not os.path.isdir(self.WATCHDOG_DIR):
+            logger.warning(f"{self.WATCHDOG_DIR} directory does not exist. Creating it now...")
+            os.mkdir(self.WATCHDOG_DIR)
         try:
             event_handler = Handler()
             self.observer.schedule(event_handler, self.WATCHDOG_DIR, recursive=False)
