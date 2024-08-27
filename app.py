@@ -65,9 +65,9 @@ if __name__ == "__main__":
     # Pyinstaller fix for multiprocessing
     multiprocessing.freeze_support()
     try:
-        process1 = Process(target=watchdog)
+        process1 = Process(target=main)
         process1.start()
-        process2 = Process(target=main)
+        process2 = Process(target=watchdog)
         process2.start()
     except Exception as e:
         logger.error(f"Error starting process: {e}.")
