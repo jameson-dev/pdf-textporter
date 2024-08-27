@@ -1,6 +1,7 @@
 import time
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler, FileSystemEvent
+from watchdog.events import FileSystemEventHandler
+from loguru import logger
 
 
 class Watcher:
@@ -19,7 +20,7 @@ class Watcher:
                 time.sleep(5)
         except Exception as e:
             self.observer.stop()
-            print(f"Error starting watchdog: {e}")
+            logger.error(f"Error starting watchdog: {e}")
 
         self.observer.join()
 
@@ -29,5 +30,5 @@ class Handler(FileSystemEventHandler):
         if event.is_directory:
             return None
         elif event.event_type == 'created' and event.src_path.endswith(".log"):
-            print("pager_msg file created - %s." % event.src_path)
+            logger.debug("File created - %s." % event.src_path)
             # TODO - Work the magic here!
