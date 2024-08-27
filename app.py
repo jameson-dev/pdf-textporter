@@ -22,8 +22,14 @@ DISPLAYED_STRING = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 
 def main():
     try:
-        logger.info("Registering font(s)...")
 
+        logger.info("\n--------------------\n"
+                    "Starting Tasking Sheets application..."
+                    "\n--------------------"
+                    "\n"
+                    )
+
+        logger.info("Registering font(s)...")
         register_font(DEFAULT_FONT, FONT_PATH)
 
         logger.info("Starting SQLite database monitoring...")
