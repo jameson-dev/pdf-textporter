@@ -9,16 +9,16 @@ An ability for automatically printing tasking sheets will be available to assist
 
 ### :white_check_mark: Monitoring & Saving
 
-- [x] SQLite database monitoring
-- [x] File watchdog
+- [x] ~~SQLite database monitoring~~
+- [x] ~~File watchdog~~
 
 ### :repeat: PDF Creation & Overlay
-- [x] PDF file creation
+- [x] ~~PDF file creation~~
 - [ ] Complete PDF Template
 - [ ] Database messages imported to PDF
 - [ ] PDF Printing
 
 ### :repeat: Application Functionality
-- [x] Application logging
+- [x] ~~Application logging~~
 - [ ] Config file(s)
 - [ ] Production testing
