@@ -6,6 +6,7 @@ from register_font import register_font
 from generate_pdf import create_temp_pdf
 from overlay import overlay_pdfs
 from multiprocessing import Process
+from loguru import logger
 
 from sqlite import monitor_db
 
@@ -21,18 +22,13 @@ DEFAULT_FONT = "Consolas"
 DISPLAYED_STRING = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".upper()
 
 
-def init_logging():
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
-
 def main():
-    init_logging()
-
     try:
-        logging.info("Registering font(s)...")
+        logger.info("Registering font(s)...")
+
         register_font(DEFAULT_FONT, FONT_PATH)
 
-        logging.info("Starting SQLite database monitoring...")
+        logger.info("Starting SQLite database monitoring...")
         monitor_db("messages")
 
         # TODO - To be moved when ready
@@ -44,7 +40,7 @@ def main():
         #
         # logging.info(f"PDF ({PDF_OUTPUT}) has been generated.")
     except Exception as e:
-        logging.error(f"An error occurred: {e}", exc_info=True)
+        logger.error(f"An error occurred: {e}")
 
 
 def watchdog():
@@ -57,4 +53,3 @@ if __name__ == "__main__":
     process1.start()
     process2 = Process(target=main)
     process2.start()
-

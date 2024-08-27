@@ -2,7 +2,7 @@ import io
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4
-
+from loguru import logger
 
 def create_temp_pdf(string, font) -> io.BytesIO:
     # Create temporary PDF

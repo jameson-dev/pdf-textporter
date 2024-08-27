@@ -1,6 +1,7 @@
 import sqlite3
 import time
 import os
+from loguru import logger
 
 from generate_pdf import create_temp_pdf
 
@@ -16,7 +17,7 @@ def monitor_db(table):
     cur.execute(f"SELECT id FROM {table} ORDER BY ID DESC LIMIT 1")
     for row in cur:
         last_id = int(row[0])
-        print(f"Latest ID in database: {last_id}.")
+        logger.debug(f"Latest ID in database: {last_id}.")
 
     # Loop to check for new entries
     while True:
@@ -24,12 +25,12 @@ def monitor_db(table):
 
         # Capture all new rows
         rows = cur.fetchall()
-        print("Checking for new rows.")
+        logger.info("Checking for new rows.")
 
         if rows:
             # Log new entries to individual files
             for row in rows:
-                print(f"ID: {row[0]}, Message: {row[1]}, Timestamp: {row[2]}")
+                logger.info(f"ID: {row[0]}, Message: {row[1]}, Timestamp: {row[2]}")
                 # Grab timestamp of pager message
                 timestamp = row[2]
 
@@ -37,9 +38,9 @@ def monitor_db(table):
                 logs_path = os.path.join('pager_logs', f'pager_msg-{timestamp}.log')
                 with open(logs_path, "x") as file:
                     file.write(row[1])
-                    print("File written ", print(row))
+                    logger.info("File written ", print(row))
                 last_id = row[0]
-                print("Update last_id: ", last_id)
+                logger.debug("Updated last_id: ", last_id)
 
         # Loop every second
 
