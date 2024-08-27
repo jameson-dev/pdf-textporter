@@ -1,3 +1,4 @@
+import multiprocessing
 import os.path
 
 from register_font import register_font
@@ -53,10 +54,8 @@ def watchdog():
 
 
 if __name__ == "__main__":
-    process1 = Process(target=watchdog)
-    process1.start()
-    process2 = Process(target=main)
-    process2.start()
+    # Pyinstaller fix for multiprocessing
+    multiprocessing.freeze_support()
     try:
         process1 = Process(target=watchdog)
         process1.start()
@@ -65,3 +64,5 @@ if __name__ == "__main__":
     except Exception as e:
         logger.error(f"Error starting process: {e}.")
 
+    # Keep console window open on error
+    input()
