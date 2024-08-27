@@ -9,4 +9,5 @@ def register_font(font_name: str, font_path: str) -> None:
     try:
         pdfmetrics.registerFont(TTFont(font_name, full_path))
     except Exception as e:
-        logger.error(f"Unable to register font: {e}")
+        logger.warning(f"Unable to register font: {e}")
+        logger.info("Falling back to default font...")
