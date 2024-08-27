@@ -21,7 +21,7 @@ def monitor_db(table):
         con = sqlite3.connect(full_path)
         cur = con.cursor()
     else:
-        logger.error(f"Database file not found: {db_path}. Exiting.")
+        logger.error(f"Database file not found: {full_path}. Exiting.")
         sys.exit()
 
     # Grab the latest entry in the DB
