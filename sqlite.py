@@ -1,4 +1,5 @@
 import sqlite3
+import sys
 import time
 import os
 from loguru import logger
@@ -9,9 +10,14 @@ from generate_pdf import create_temp_pdf
 def monitor_db(table):
     last_id = 0
     database = "messages.db"
+    db_path = database
 
-    con = sqlite3.connect(database)
-    cur = con.cursor()
+    if os.path.isfile(db_path):
+        con = sqlite3.connect(database)
+        cur = con.cursor()
+    else:
+        logger.error(f"Database file not found: {db_path}. Exiting.")
+        sys.exit()
 
     # Grab the latest entry in the DB
     cur.execute(f"SELECT id FROM {table} ORDER BY ID DESC LIMIT 1")
