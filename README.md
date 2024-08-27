@@ -20,5 +20,5 @@ An ability for automatically printing tasking sheets will be available to assist
 
 ### :repeat: Application Functionality
 - [x] ~~Application logging~~
-- [ ] Config file(s)
+- [x] ~~Config file~~
 - [ ] Production testing
