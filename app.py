@@ -1,6 +1,4 @@
 import os.path
-import logging
-import time
 
 from register_font import register_font
 from generate_pdf import create_temp_pdf
