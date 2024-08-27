@@ -6,13 +6,14 @@ from generate_pdf import create_temp_pdf
 from overlay import overlay_pdfs
 from multiprocessing import Process
 from loguru import logger
+from config import create_config
+from config import read_config
 
 from sqlite import monitor_db
 
 from file_watchdog import Watcher
 
-# Constants
-# TODO - Config file!
+# Constants - Hardcoded until they can't be
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PDF_TEMPLATE = os.path.join(ROOT_DIR, "template.pdf")
 PDF_OUTPUT = os.path.join(ROOT_DIR, "output.pdf")       # TODO - Timestamp generated PDFs
@@ -30,11 +31,18 @@ def main():
                     "\n"
                     )
 
+        logger.info("Loading configuration file...")
+        if not os.path.isfile('config.ini'):
+            logger.warning("Config file not found. Creating one now...")
+            create_config()
+
+        config_values = read_config()
+
         logger.info("Registering font(s)...")
         register_font(DEFAULT_FONT, FONT_PATH)
 
         logger.info("Starting SQLite database monitoring...")
-        monitor_db("messages")
+        monitor_db(config_values['db_table'])
 
         # TODO - To be moved when ready
         # logging.info("Generating temporary PDF...")

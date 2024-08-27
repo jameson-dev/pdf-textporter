@@ -3,10 +3,13 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from loguru import logger
+from config import read_config
+
+config_values = read_config()
 
 
 class Watcher:
-    WATCHDOG_DIR = "pager_logs"
+    WATCHDOG_DIR = config_values['msgs_path']
 
     def __init__(self):
         self.observer = Observer()
