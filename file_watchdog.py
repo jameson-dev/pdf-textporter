@@ -11,9 +11,12 @@ class Watcher:
         self.observer = Observer()
 
     def run(self):
-        event_handler = Handler()
-        self.observer.schedule(event_handler, self.WATCHDOG_DIR, recursive=False)
-        self.observer.start()
+        try:
+            event_handler = Handler()
+            self.observer.schedule(event_handler, self.WATCHDOG_DIR, recursive=False)
+            self.observer.start()
+        except FileNotFoundError as e:
+            logger.error(f"An error occurred: {e}")
 
         try:
             while True:
