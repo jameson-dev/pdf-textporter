@@ -14,7 +14,7 @@ def create_temp_pdf(string, font) -> io.BytesIO:
     # Instantiate styling class
     style = ParagraphStyle(
         name="Default",
-        fontName=font,
+        fontName="Consolas",
         fontSize=13,
         borderColor="#000000",
         borderWidth=1,
