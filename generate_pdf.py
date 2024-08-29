@@ -2,6 +2,8 @@ import io
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4
+from register_font import register_font
+from overlay import overlay_pdfs
 import os
 from loguru import logger
 
