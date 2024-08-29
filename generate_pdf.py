@@ -5,7 +5,9 @@ from reportlab.lib.pagesizes import A4
 from loguru import logger
 
 
-def create_temp_pdf(string, font) -> io.BytesIO:
+def create_temp_pdf(string) -> None:
+    logger.debug("Registering font...")
+    register_font("Consolas", font_path=FONT_PATH)
     # Create temporary PDF
     packet = io.BytesIO()
 
