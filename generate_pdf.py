@@ -34,4 +34,5 @@ def create_temp_pdf(string, font) -> io.BytesIO:
     # Build the new PDF we'll be using
     packet.seek(0)
 
-    return packet
+    overlay_pdfs(packet, PDF_TEMPLATE, PDF_OUTPUT)
+
