@@ -19,5 +19,6 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
         # Save output to a file
         with open(pdf_name, "wb") as output_stream:
             output.write(output_stream)
+            logger.info("PDF created")
     except Exception as e:
         logger.error(f"Unable to overlay PDF: {e}")
