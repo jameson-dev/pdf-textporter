@@ -4,6 +4,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from loguru import logger
 from config import read_config
+from generate_pdf import create_temp_pdf
 
 
 class Watcher:
@@ -40,4 +41,7 @@ class Handler(FileSystemEventHandler):
             return None
         elif event.event_type == 'created' and event.src_path.endswith(".log"):
             logger.debug("File created - %s." % event.src_path)
-            # TODO - Work the magic here!
+            with open(event.src_path, "r") as f:
+                string = f.read().replace("\n", "")
+
+            create_temp_pdf(string)
