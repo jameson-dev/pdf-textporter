@@ -14,7 +14,7 @@ An ability for automatically printing tasking sheets will be available to assist
 
 ### :repeat: PDF Creation & Overlay
 - [x] ~~PDF file creation~~
-- [x] Database messages import to PDF
+- [x] ~~Database messages import to PDF~~
 - [ ] Complete PDF Template
 - [ ] PDF Printing
 
