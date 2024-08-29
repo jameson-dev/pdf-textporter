@@ -2,7 +2,14 @@ import io
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4
+import os
 from loguru import logger
+
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+PDF_TEMPLATE = os.path.join(ROOT_DIR, "template.pdf")
+PDF_OUTPUT = os.path.join(ROOT_DIR, "output.pdf")       # TODO - Timestamp generated PDFs
+FONT_PATH = os.path.join(ROOT_DIR, "fonts")
 
 
 def create_temp_pdf(string) -> None:
