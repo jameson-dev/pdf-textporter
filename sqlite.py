@@ -45,11 +45,12 @@ def monitor_db(table):
             # Log new entries to individual files
             for row in rows:
                 logger.info(f"ID: {row[0]}, Message: {row[1]}, Timestamp: {row[2]}")
-                # Grab timestamp of pager message
-                timestamp = row[2]
+
+                # Grab message ID of pager message
+                msg_id = row[0]
 
                 # Write each pager message to new file
-                msgs_path = os.path.join(msgs_path, f'pager_msg-{timestamp}.log')
+                msgs_path = os.path.join(msgs_path, f'pager_msg-{msg_id}.log')
                 with open(msgs_path, "x") as file:
                     file.write(row[1])
                     logger.info("File written ", print(row))
