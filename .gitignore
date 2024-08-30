@@ -1,5 +1,5 @@
 
-output.pdf
+output*.pdf
 messages.db
 pager_logs/*
 *.log
