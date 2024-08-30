@@ -1,5 +1,6 @@
 from pypdf import PdfReader, PdfWriter
 from loguru import logger
+from print_pdf import print_pdf
 
 
 def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
@@ -20,6 +21,9 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
         with open(pdf_name, "wb") as output_stream:
             output.write(output_stream)
             logger.info(f"PDF created at {pdf_name}")
+
+        # Print PDF
+        print_pdf(pdf_name)
 
     except Exception as e:
         logger.error(f"Unable to overlay PDF: {e}")
