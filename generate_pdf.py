@@ -1,49 +1,55 @@
+import os
 import io
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4
+from loguru import logger
 from register_font import register_font
 from overlay import overlay_pdfs
-import os
-from loguru import logger
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PDF_TEMPLATE = os.path.join(ROOT_DIR, "template.pdf")
 PDF_OUTPUT = os.path.join(ROOT_DIR, "output.pdf")       # TODO - Timestamp generated PDFs
 FONT_PATH = os.path.join(ROOT_DIR, "fonts")
+FONT_NAME = "Consolas"
 
 
-def create_temp_pdf(string) -> None:
-    logger.debug("Registering font...")
-    register_font("Consolas", font_path=FONT_PATH)
-    # Create temporary PDF
-    packet = io.BytesIO()
+def create_temp_pdf(string: str) -> None:
+    try:
+        logger.debug("Registering font...")
+        register_font(FONT_NAME, font_path=FONT_PATH)
 
-    doc = SimpleDocTemplate(filename=packet, pagesize=A4)
+        # Create temporary PDF
+        logger.debug("Generating PDF in memory as binary string")
+        packet = io.BytesIO()
 
-    # Instantiate styling class
-    style = ParagraphStyle(
-        name="Default",
-        fontName="Consolas",
-        fontSize=13,
-        borderColor="#000000",
-        borderWidth=1,
-        leading=15,
-        borderPadding=20
-    )
+        doc = SimpleDocTemplate(filename=packet, pagesize=A4)
 
-    # Paragraph parameters
-    para_pager = Paragraph(string, style=style)
+        # Instantiate styling class
+        style = ParagraphStyle(
+            name="Default",
+            fontName="Consolas",
+            fontSize=13,
+            borderColor="#000000",
+            borderWidth=1,
+            leading=15,
+            borderPadding=20
+        )
 
-    # Create a vertical spacer
-    top_spacer = Spacer(0, 50)
+        # Paragraph parameters
+        para_pager = Paragraph(string, style=style)
 
-    # Build the document with specified flowables
-    doc.build([top_spacer, para_pager])
+        # Create a vertical spacer
+        top_spacer = Spacer(0, 50)
 
-    # Build the new PDF we'll be using
-    packet.seek(0)
+        # Build the document with specified flowables
+        logger.debug("Building PDF document...")
+        doc.build([top_spacer, para_pager])
 
-    overlay_pdfs(packet, PDF_TEMPLATE, PDF_OUTPUT)
+        # Build the new PDF we'll be using
+        packet.seek(0)
 
+        overlay_pdfs(packet, PDF_TEMPLATE, PDF_OUTPUT)
+    except Exception as e:
+        logger.error(f"Error creating temporary PDF: {e}")
