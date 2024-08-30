@@ -1,5 +1,6 @@
 import multiprocessing
 import os.path
+import time
 from multiprocessing import Process
 from loguru import logger
 from config import create_config
@@ -15,6 +16,13 @@ FONT_PATH = os.path.join(ROOT_DIR, "fonts")
 DEFAULT_FONT = "Consolas"
 
 
+def check_config():
+    logger.info("Loading configuration file...")
+    if not os.path.isfile('config.ini'):
+        logger.warning("Config file not found. Creating one now...")
+        create_config()
+
+
 def main():
     try:
 
@@ -23,16 +31,6 @@ def main():
                     "\n--------------------"
                     "\n"
                     )
-
-        logger.info("Loading configuration file...")
-        if not os.path.isfile('config.ini'):
-            logger.warning("Config file not found. Creating one now...")
-            create_config()
-
-        config_values = read_config()
-
-        logger.info("Starting SQLite database monitoring...")
-        monitor_db(config_values['db_table'])
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
@@ -42,16 +40,26 @@ def watchdog():
     w.run()
 
 
+def start_monit():
+    config_values = read_config()
+
+    logger.info("Starting SQLite database monitoring...")
+    monitor_db(config_values['db_table'])
+
+
 if __name__ == "__main__":
     # Pyinstaller fix for multiprocessing
     multiprocessing.freeze_support()
     try:
-        process1 = Process(target=main)
+        process1 = Process(target=check_config)
         process1.start()
         process2 = Process(target=watchdog)
         process2.start()
+        process3 = Process(target=start_monit)
+        process3.start()
     except Exception as e:
         logger.error(f"Error starting process: {e}.")
 
     # Keep console window open on error
     input()
+
