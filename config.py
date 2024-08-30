@@ -1,11 +1,14 @@
 import configparser
+import time
+
 from loguru import logger
 
 
 def create_config():
     config = configparser.ConfigParser()
 
-    config['General'] = {'log_level': 'info'
+    config['General'] = {'log_level': 'info',
+                         'sumatra_path': r'D:\Program Files\SumatraPDF'
                          }
 
     config['Database'] = {'db_path': './',
@@ -27,6 +30,7 @@ def read_config():
     config.read('config.ini')
 
     log_level = config.get('General', 'log_level')
+    sumatra_path = config.get('General', 'sumatra_path')
     db_path = config.get('Database', 'db_path')
     db_file = config.get('Database', 'db_file')
     db_table = config.get('Database', 'db_table')
@@ -34,6 +38,7 @@ def read_config():
 
     config_values = {
         'log_level': log_level,
+        'sumatra_path': sumatra_path,
         'db_path': db_path,
         'db_file': db_file,
         'db_table': db_table,
