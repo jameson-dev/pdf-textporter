@@ -31,7 +31,7 @@ def monitor_db(table):
         logger.debug(f"Latest ID in db_file: {last_id}.")
 
     # Retrieve path for saved pager messages from config
-    msgs_path = config_values['msgs_path']
+    msgs_dir = config_values['msgs_path']
 
     # Loop to check for new entries
     while True:
@@ -49,9 +49,19 @@ def monitor_db(table):
                 # Grab message ID of pager message
                 msg_id = row[0]
 
+                # Set a base filename for log file
+                base_filename = f"pager_msg_{msg_id}.log"
+
                 # Write each pager message to new file
-                msgs_path = os.path.join(msgs_path, f'pager_msg-{msg_id}.log')
-                with open(msgs_path, "x") as file:
+                msg_file_path = os.path.join(msgs_dir, base_filename)
+
+                # Increment filename in the event of a duplicate
+                counter = 1
+                while os.path.exists(msg_file_path):
+                    msg_file_path = os.path.join(msgs_dir, f'pager_msg-{msg_id}_{counter}.log')
+                    counter += 1
+
+                with open(msg_file_path, "x") as file:
                     file.write(row[1])
                     logger.info("File written ", print(row))
                 last_id = row[0]
