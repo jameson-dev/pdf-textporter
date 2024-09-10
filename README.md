@@ -11,7 +11,6 @@ An ability for automatically printing tasking sheets will be available to assist
 
 - [x] ~~SQLite database monitoring~~
 - [x] ~~File watchdog~~
-- [ ] FTP support
 
 ### :repeat: PDF Creation & Overlay
 - [x] ~~PDF file creation~~
