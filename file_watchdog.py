@@ -44,5 +44,5 @@ class Handler(FileSystemEventHandler):
             time.sleep(1)
             with open(event.src_path, "r") as f:
                 string = f.read().replace("\n", "")
-
-            create_temp_pdf(string)
+                logger.debug(f"Captured string: {string}")
+                create_temp_pdf(string)
