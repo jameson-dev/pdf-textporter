@@ -41,6 +41,7 @@ class Handler(FileSystemEventHandler):
             return None
         elif event.event_type == 'created' and event.src_path.endswith(".log"):
             logger.debug("File created - %s." % event.src_path)
+            time.sleep(1)
             with open(event.src_path, "r") as f:
                 string = f.read().replace("\n", "")
 

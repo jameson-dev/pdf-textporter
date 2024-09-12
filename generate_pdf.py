@@ -18,6 +18,7 @@ FONT_NAME = "Consolas"
 
 def create_temp_pdf(string: str) -> None:
     try:
+        print(f"string: {string}")
         logger.debug("Registering font...")
         register_font(FONT_NAME, font_path=FONT_PATH)
 
