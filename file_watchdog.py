@@ -3,8 +3,11 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from loguru import logger
+
 from config import read_config
 from generate_pdf import create_temp_pdf
+
+config_value = read_config()
 
 
 class Watcher:
@@ -41,7 +44,9 @@ class Handler(FileSystemEventHandler):
             return None
         elif event.event_type == 'created' and event.src_path.endswith(".log"):
             logger.debug("File created - %s." % event.src_path)
-            time.sleep(1)
+
+            # Must be a delay to ensure log file is written to fully before being read
+            time.sleep(config_value['file_read_delay'])
             with open(event.src_path, "r") as f:
                 string = f.read().replace("\n", "")
                 logger.debug(f"Captured string: {string}")
