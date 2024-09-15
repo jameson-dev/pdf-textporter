@@ -4,7 +4,6 @@ import time
 import os
 from loguru import logger
 from config import read_config
-from generate_pdf import create_temp_pdf
 
 
 def monitor_db(table):
