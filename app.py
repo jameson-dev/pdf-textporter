@@ -1,7 +1,7 @@
 #!/venv/bin/python
+
 import multiprocessing
 import os.path
-import time
 from multiprocessing import Process
 from loguru import logger
 from config import create_config
@@ -11,10 +11,10 @@ from sqlite import monitor_db
 
 from file_watchdog import Watcher
 
-# Constants - Hardcoded until they can't be
+# Constants
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 FONT_PATH = os.path.join(ROOT_DIR, "fonts")
-DEFAULT_FONT = "Consolas"
+DEFAULT_FONT = "Consolas"  # Intentionally the only font allowed.
 
 
 def check_config():
@@ -63,4 +63,3 @@ if __name__ == "__main__":
 
     # Keep console window open on error
     input()
-
