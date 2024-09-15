@@ -7,7 +7,8 @@ def create_config():
     config = configparser.ConfigParser()
 
     config['General'] = {'log_level': 'info',
-                         'cups_printer_name': 'Office'
+                         'cups_printer_name': 'Office',
+                         'file_read_delay': 1
                          }
 
     config['Database'] = {'db_path': './',
@@ -30,6 +31,7 @@ def read_config():
 
     log_level = config.get('General', 'log_level')
     cups_printer_name = config.get('General', 'cups_printer_name')
+    file_read_delay = config.get('General', 'file_read_delay')
     db_path = config.get('Database', 'db_path')
     db_file = config.get('Database', 'db_file')
     db_table = config.get('Database', 'db_table')
@@ -38,6 +40,7 @@ def read_config():
     config_values = {
         'log_level': log_level,
         'cups_printer_name': cups_printer_name,
+        'file_read_delay': file_read_delay,
         'db_path': db_path,
         'db_file': db_file,
         'db_table': db_table,
