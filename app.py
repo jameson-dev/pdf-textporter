@@ -51,9 +51,11 @@ def start_monit():
 if __name__ == "__main__":
     # Pyinstaller fix for multiprocessing
     multiprocessing.freeze_support()
+
     try:
         process1 = Process(target=check_config)
         process1.start()
+        process1.join()
         process2 = Process(target=watchdog)
         process2.start()
         process3 = Process(target=start_monit)

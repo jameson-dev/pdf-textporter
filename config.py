@@ -1,4 +1,5 @@
 import configparser
+import os.path
 
 from loguru import logger
 
@@ -26,6 +27,9 @@ def create_config():
 
 def read_config():
     config = configparser.ConfigParser()
+
+    if not os.path.isfile('config.ini'):
+        create_config()
 
     config.read('config.ini')
 
