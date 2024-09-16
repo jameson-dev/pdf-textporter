@@ -6,7 +6,7 @@ VENV_DIR="venv"
 # Check if virtual environment exists
 # shellcheck disable=SC1073
 if [ ! -d "$VENV_DIR" ]; then
-  echo "Virtual environment not yet set up. Creating on now..."
+  echo "Virtual environment not yet set up. Creating one now..."
 
 
 
