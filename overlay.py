@@ -7,7 +7,7 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
     try:
         # Debugging: Print the number of pages in overlay PDF
         if overlay_pdf.getvalue():
-            logger.debug(f"Overlay PDF stream contains data: {overlay_pdf.getvalue()}")
+            logger.debug("Overlay PDF stream contains data")
         else:
             logger.error("Overlay PDF stream is empty. There is an issue.")
 
