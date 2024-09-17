@@ -47,11 +47,10 @@ class CustomDocTemplate(BaseDocTemplate):
         )
 
     def build(self, flowables, filename=None, canvasmaker=canvas.Canvas):
-        self.addPageTemplates([self.createPageTemplate()])
+        self.addPageTemplates([self.create_page_template()])
         super().build(flowables)
 
-
-    def createPageTemplate(self):
+    def create_page_template(self):
         return PageTemplate(id='frame_template', frames=[self.frame])
 
 
