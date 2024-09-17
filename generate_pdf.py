@@ -7,16 +7,17 @@ from reportlab.platypus import Paragraph, BaseDocTemplate, Frame, PageTemplate, 
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch, cm
-from reportlab.lib.colors import black
 from loguru import logger
 from register_font import register_font
 from overlay import overlay_pdfs
-
+from config import read_config
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PDF_TEMPLATE = os.path.join(ROOT_DIR, "template.pdf")
 FONT_PATH = os.path.join(ROOT_DIR, "fonts")
 FONT_NAME = "Consolas"
+
+config_values = read_config()
 
 
 class CustomDocTemplate(BaseDocTemplate):
@@ -24,11 +25,10 @@ class CustomDocTemplate(BaseDocTemplate):
         super().__init__(filename, **kwargs)
 
         # Define margins and frame dimensions
-        # TODO - Add values to config
-        left_margin = cm - 10
-        right_margin = cm - 20
-        top_margin = 2 * cm  # Adjust top margin as needed
-        bottom_margin = 9.75 * inch  # Adjust bottom margin as needed
+        left_margin = cm - config_values['left_margin']
+        right_margin = cm - config_values['right_margin']
+        top_margin = cm * config_values['top_margin']
+        bottom_margin = inch * config_values['bottom_margin']
 
         # Frame dimensions
         frame_width = A4[0] - left_margin - right_margin
