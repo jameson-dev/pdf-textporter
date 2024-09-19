@@ -16,6 +16,8 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 FONT_PATH = os.path.join(ROOT_DIR, "fonts")
 DEFAULT_FONT = "Consolas"  # Intentionally the only font allowed.
 
+logger.add("app.log", rotation="12 hours", format="{time} {level} {message}")
+
 
 def check_config():
     logger.info("Loading configuration file...")
