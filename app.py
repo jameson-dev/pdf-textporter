@@ -55,6 +55,7 @@ if __name__ == "__main__":
     multiprocessing.freeze_support()
 
     try:
+        main()
         process1 = Process(target=check_config)
         process1.start()
         process1.join()
