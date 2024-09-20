@@ -11,6 +11,7 @@ An ability for automatically printing tasking sheets will be available to assist
 
 - [x] ~~SQLite database monitoring~~
 - [x] ~~File watchdog~~
+- [ ] Regex Filtering
 
 ### :white_check_mark: PDF Creation & Overlay
 - [x] ~~PDF file creation~~
