@@ -2,10 +2,12 @@
 
 import multiprocessing
 import os.path
+import sys
 from multiprocessing import Process
 from loguru import logger
 from config import create_config
 from config import read_config
+from module_check import load_requirements, check_modules
 
 from sqlite import monitor_db
 
@@ -34,6 +36,15 @@ def main():
                     "\n--------------------"
                     "\n"
                     )
+        required_modules = load_requirements()
+        missing_modules = check_modules(required_modules)
+
+        if missing_modules:
+            logger.error("The following modules are missing or do not have the correct version:")
+            logger.error('\n'.join(missing_modules))
+            logger.error('Install the required modules using the following command in the apps root directory:')
+            logger.error('  pip install -r requirements')
+            sys.exit(1)
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
