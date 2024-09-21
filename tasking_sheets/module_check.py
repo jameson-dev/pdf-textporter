@@ -1,8 +1,7 @@
-import sys
 import importlib.metadata
 
 
-def load_requirements(filename='requirements.txt'):
+def load_requirements(filename='../requirements.txt'):
     with open(filename, 'r') as file:
         requirements = [line.strip() for line in file if line.strip() and not line.startswith('#')]
     return requirements

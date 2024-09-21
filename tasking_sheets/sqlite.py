@@ -3,16 +3,16 @@ import sys
 import time
 import os
 from loguru import logger
-from config import read_config
+from config import Config
 
 
 def monitor_db(table):
     last_id = 0
 
-    config_values = read_config()
+    config = Config()
 
-    db_path = config_values['db_path']
-    db_file = config_values['db_file']
+    db_path = config.get('Database', 'db_path')
+    db_file = config.get('Database', 'db_file')
     full_path = os.path.join(db_path, db_file)
 
     if os.path.isfile(full_path):
@@ -30,11 +30,11 @@ def monitor_db(table):
         logger.debug(f"Latest ID in db_file: {last_id}.")
 
     # Retrieve path for saved pager messages from config
-    msgs_dir = config_values['msgs_path']
+    msgs_dir = config.get('Messages', 'msgs_path')
 
     # Loop to check for new entries
     while True:
-        cur.execute(f"SELECT id, message, timestamp FROM {table} WHERE ID > ?",(last_id,))
+        cur.execute(f"SELECT id, message, timestamp FROM {table} WHERE ID > ?", (last_id,))
 
         # Capture all new rows
         rows = cur.fetchall()
