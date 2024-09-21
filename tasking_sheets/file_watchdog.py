@@ -3,11 +3,10 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from loguru import logger
-
-from config import read_config
+from config import Config
 from generate_pdf import create_temp_pdf
 
-config_value = read_config()
+config = Config()
 
 
 class Watcher:
@@ -15,8 +14,7 @@ class Watcher:
         self.observer = Observer()
 
     def run(self):
-        config_values = read_config()
-        watchdog_dir = config_values['msgs_path']
+        watchdog_dir = config.get('Messages', 'msgs_path')
         logger.info(f"Watchdog is now monitoring '{watchdog_dir}'")
         if not os.path.isdir(watchdog_dir):
             logger.warning(f"{watchdog_dir} directory does not exist. Creating it now...")
@@ -46,7 +44,8 @@ class Handler(FileSystemEventHandler):
             logger.debug("File created - %s." % event.src_path)
 
             # Must be a delay to ensure log file is written to fully before being read
-            time.sleep(config_value['file_read_delay'])
+            file_read_delay = config.getint('General', 'file_read_delay')
+            time.sleep(file_read_delay)
             with open(event.src_path, "r") as f:
                 string = f.read().replace("\n", "")
                 logger.debug(f"Captured string: {string}")

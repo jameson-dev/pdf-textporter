@@ -13,9 +13,6 @@ def overlay_pdfs(overlay_pdf, template_pdf, pdf_name):
 
         new_pdf = PdfReader(overlay_pdf)
 
-        # Debugging: Print the number of pages in the overlay PDF
-        logger.debug(f"Number of pages in overlay PDF: {len(new_pdf.pages)}")
-
         # Read existing template PDF
         with open(template_pdf, "rb") as f:
             existing_pdf = PdfReader(f)
