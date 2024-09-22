@@ -1,10 +1,10 @@
 import subprocess
 from loguru import logger
-from config import read_config
+from config import Config
 
-config_values = read_config()
+config = Config()
 
-printer_name = config_values['cups_printer_name']
+printer_name = config.get('General', 'cups_printer_name')
 
 
 def print_pdf(pdf_name):

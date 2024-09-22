@@ -10,25 +10,26 @@ from reportlab.lib.units import inch, cm
 from loguru import logger
 from register_font import register_font
 from overlay import overlay_pdfs
-from config import read_config
+from config import Config
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-PDF_TEMPLATE = os.path.join(ROOT_DIR, "template.pdf")
-FONT_PATH = os.path.join(ROOT_DIR, "fonts")
+OUTPUT_PATH = "..\\generated_pdfs\\output"
+PDF_TEMPLATE = os.path.join("..\\template.pdf")
+FONT_PATH = os.path.join("..\\fonts")
 FONT_NAME = "Consolas"
-
-config_values = read_config()
 
 
 class CustomDocTemplate(BaseDocTemplate):
     def __init__(self, filename, **kwargs):
         super().__init__(filename, **kwargs)
 
+        config = Config()
+
         # Define margins and frame dimensions
-        left_margin = cm - config_values['left_margin']
-        right_margin = cm - config_values['right_margin']
-        top_margin = cm * config_values['top_margin']
-        bottom_margin = inch * config_values['bottom_margin']
+        left_margin = cm - config.getfloat('PDF', 'left_margin')
+        right_margin = cm - config.getfloat('PDF', 'right_margin')
+        top_margin = cm * config.getfloat('PDF', 'top_margin')
+        bottom_margin = inch * config.getfloat('PDF', 'bottom_margin')
 
         # Frame dimensions
         frame_width = A4[0] - left_margin - right_margin
