@@ -44,7 +44,7 @@ class CustomDocTemplate(BaseDocTemplate):
             y1=y1 - frame_height,
             width=frame_width,
             height=frame_height,
-            showBoundary=0  # To use when debugging
+            showBoundary=config.getint('PDF', 'show_boundary')  # To use when debugging
         )
 
     def build(self, flowables, filename=None, canvasmaker=canvas.Canvas):

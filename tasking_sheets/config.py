@@ -39,7 +39,8 @@ class Config:
         config['PDF'] = {'left_margin': '10',
                          'right_margin': '20',
                          'top_margin': '2',
-                         'bottom_margin': '9.75'
+                         'bottom_margin': '9.75',
+                         'show_boundary': '0'
                          }
 
         with open(self.config_file_path, 'w') as configfile:
