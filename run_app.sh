@@ -18,7 +18,7 @@ cleanup() {
 }
 
 # Ensure python3 is installed
-if ! command -v python3 &>/dev/null; then
+if ! command -v python3; then
     echo "Python3 is not installed."
     echo "Run 'sudo apt install python3-full'"
     exit 1
@@ -49,7 +49,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
     exit 1
 fi
 
-if ! command -v pip $>/dev/null; then
+if ! command -v pip; then
     echo "pip doesn't seem to be installed."
     echo "Run 'sudo apt install pip'"
     exit 1
