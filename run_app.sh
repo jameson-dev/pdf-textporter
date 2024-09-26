@@ -17,6 +17,13 @@ cleanup() {
     fi
 }
 
+# Ensure python3 is installed
+if ! command -v python3 &>/dev/null; then
+    echo "Python3 is not installed."
+    echo "Run 'sudo apt install python3-full'"
+    exit 1
+fi
+
 # Set a trap to ensure cleanup happens on EXIT (0) and SIGINT (2)
 trap cleanup 0 2
 
@@ -39,6 +46,12 @@ echo "Activating virtual environment"
 # Check if venv activation was successful
 if [ -z "$VIRTUAL_ENV" ]; then
     echo "Failed to activate virtual environment. Exiting"
+    exit 1
+fi
+
+if ! command -v pip $>/dev/null; then
+    echo "pip doesn't seem to be installed."
+    echo "Run 'sudo apt install pip'"
     exit 1
 fi
 
