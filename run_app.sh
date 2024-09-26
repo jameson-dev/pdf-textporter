@@ -3,26 +3,63 @@
 # Define path to virtual environment
 VENV_DIR="venv"
 
+# Directory of app.py
+APP_DIR="tasking_sheets"
+
+# Path to requirements file
+REQUIREMENTS_FILE="requirements.txt"
+
+# Function to handle cleanup on exit
+cleanup() {
+    if [ -n "$VIRTUAL_ENV" ]; then
+        echo "Deactivating virtual environment..."
+        deactivate
+    fi
+}
+
+# Set a trap to ensure cleanup happens on EXIT (0) and SIGINT (2)
+trap cleanup 0 2
+
 # Check if virtual environment exists
-# shellcheck disable=SC1073
-if [ ! -d "$VENV_DIR" ]; then
-  echo "Virtual environment not yet set up. Creating one now..."
-
-
-
-
-  # Create virtual environment and confirm it was created successfully
-  if ! python3 -m venv "$VENV_DIR"; then
-    echo "Failed to create virtual environment. Exiting."
+if ! python3 -m venv "$VENV_DIR"; then
+    echo "Virtual environment not yet set up. Creating one now..."
     exit 1
+
+    # Create virtual environment and confirm it was created successfully
+    if ! python3 -m venv "$VENV_DIR"; then
+      echo "Failed to create virtual environment. Exiting."
+      exit 1
   fi
 fi
 
-# Active virtual environment
-source "$VENV_DIR/bin/activate"
+# Activate virtual environment
+echo "Activating virtual environment"
+. "$VENV_DIR/bin/activate"
+
+# Check if venv activation was successful
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "Failed to activate virtual environment. Exiting"
+    exit 1
+fi
+
+# Install requirements.txt dependencies with pip
+if [ -f "$REQUIREMENTS_FILE" ]; then
+    echo "Requirements file found. Installing dependencies..."
+    pip install --upgrade pip
+    if ! pip install -r "$REQUIREMENTS_FILE"; then
+        echo "Failed to install required dependencies. Exiting"
+        exit 1
+    fi
+else
+    echo "requirements.txt not found. Exiting..."
+    exit 1
+fi
+
+
+
+# Print venv path
+echo "Virtual environment activated: $VIRTUAL_ENV"
 
 # Run app
-python3 app.py
-
-# Deactivate virtual environment after app closes
-deactivate
+echo "Running app"
+python3 "${APP_DIR}/app.py"
