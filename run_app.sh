@@ -51,7 +51,7 @@ fi
 
 if ! command -v pip; then
     echo "pip doesn't seem to be installed."
-    echo "Run 'sudo apt install pip'"
+    echo "Run 'sudo apt install python3-pip'"
     exit 1
 fi
 
